@@ -5,6 +5,8 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+
+import net.datafaker.Faker;
 import org.testng.Assert;
 
 import java.util.regex.Matcher;
@@ -15,6 +17,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class ContactUs_Steps {
     public BrowserManager browserManager;
+    private final Faker faker = new Faker();
 
     public ContactUs_Steps(BrowserManager browserManager) {
         this.browserManager = browserManager;
@@ -76,6 +79,45 @@ public class ContactUs_Steps {
         Matcher matcher = pattern.matcher(bodyText);
         Assert.assertTrue(matcher.find(), "The body text does not match the expected error message. Found Text: " + bodyText);
     }
+    @And("I type a specific first name {string}")
+    public void i_type_a_specific_first_name(String firstName) {
+        browserManager.page.getByPlaceholder("First Name").fill(firstName);
+    }
+
+    @And("I type a specific last name {string}")
+    public void i_type_a_specific_last_name(String lastName) {
+        browserManager.page.getByPlaceholder("Last Name").fill(lastName);
+    }
+
+    @And("I enter a specific email address {string}")
+    public void i_enter_a_specific_email_address(String emailAddress) {
+        browserManager.page.getByPlaceholder("Email Address").fill(emailAddress);
+    }
+
+    @And("I type specific text {string} and a number {int} within the comment input field")
+    public void i_type_specific_text_and_a_number_within_the_comment_input_field(String word, Integer number) {
+        browserManager.page.getByPlaceholder("Comments").fill(word + " " + number);
+    }
+
+    //Random Data - Data Faker
+    @And("I type a random first name")
+    public void i_type_a_random_first_name() {
+        String randomFirstName = faker.name().firstName();
+        browserManager.page.getByPlaceholder("First Name").fill(randomFirstName);
+    }
+
+    @And("I type a random last name")
+    public void i_type_a_random_last_name() {
+        String randomLastName = faker.name().lastName();
+        browserManager.page.getByPlaceholder("Last Name").fill(randomLastName);
+    }
+
+    @And("I enter a random email address")
+    public void i_enter_a_random_email_address() {
+        String randomEmail = faker.internet().emailAddress();
+        browserManager.page.getByPlaceholder("Email Address").fill(randomEmail);
+    }
+
 
 
 }
