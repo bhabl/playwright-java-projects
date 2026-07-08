@@ -27,6 +27,15 @@ public class HomePage_Steps {
         browserManager.page.bringToFront();
         //mostRecentPage.pause();
     }
+    @When("I click on the login portal button")
+    public void i_click_on_the_login_portal_button() {
+        browserManager.page = browserManager.context.waitForPage(() -> {
+            browserManager.page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LOGIN PORTAL Login Portal")).click();
+        });
+
+        browserManager.page.bringToFront();
+    }
+
 
 
 }
