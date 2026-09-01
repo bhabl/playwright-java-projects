@@ -55,6 +55,7 @@ public class ContactUs_Steps {
 
         //Once loaded, click on button
         browserManager.page.click("input[value='SUBMIT']");
+
     }
 
     @Then("I should be presented with a successful contact us submission message")
